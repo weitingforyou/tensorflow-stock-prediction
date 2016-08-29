@@ -8,7 +8,6 @@ import matplotlib.finance as finance
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from yahoo_finance import Share
 import datetime
 
 
