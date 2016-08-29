@@ -5,7 +5,7 @@ feed graphical data as input data
 1. plot and save the line chart
 2. including KD, relative price
 
-## dqn_relative_price.ipynb
+## dqn_graph_relative_price.py
 1. 2011~2015 train, 2016 test
 2. feed relative price line chart as input
 3. train with 2 actions, 0 represents "do nothing", and 1 represents "buy and then sell"
