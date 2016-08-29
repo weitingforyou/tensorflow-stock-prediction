@@ -1,6 +1,6 @@
 # Tensorflow Stock Prediction
-Run CNN and DQN model with Tensorflow for stock prediction. 
-Feature include daily close price, daily relative price, MA, RSI.
+Run CNN and DQN model with Tensorflow for stock prediction.<br>
+Feature include daily close price, daily relative price, MA, RSI.<br>
 Stock data are collected from matplotlib.finance.
 
 ## Installation Dependencies
@@ -11,8 +11,8 @@ Stock data are collected from matplotlib.finance.
  - Gym (for Deep Q Network)
 
 ## Distributed Tensorflow
-Distributed version for MNIST example.
-Create a cluster of Tensorflow servers, and distribute a computation graph across the cluster.
+Distributed version for MNIST example.<br>
+Create a cluster of Tensorflow servers, and distribute a computation graph across the cluster.<br>
 Need to consider about transmission time. Transmission time must not be longer than compute time.
 
 ## Convolutional Neural Network
