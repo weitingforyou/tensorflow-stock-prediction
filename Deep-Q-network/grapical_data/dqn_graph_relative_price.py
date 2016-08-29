@@ -8,7 +8,6 @@ import matplotlib.finance as finance
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from yahoo_finance import Share
 import datetime
 
 
@@ -25,7 +24,7 @@ BATCH_SIZE = 32  # size of minibatch
 
 # Hyper Parameters for main function
 EPISODE = 10000  # total episode
-STEP = 10000  # Step limitation in an episode, it must be equal or larger than your training data
+STEP = 10000  # Step limitation in an episode, it must be equal or larger than the length of your training data
 TEST = 10 #10 # The number of experiment test every 100 episode
 
 
