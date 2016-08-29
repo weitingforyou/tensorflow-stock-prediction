@@ -4,7 +4,7 @@ Take reference from
  2. yenchenlin's work (https://github.com/yenchenlin/DeepLearningFlappyBird)
 
 ## graphical data
-feed graphical data as input data
+feed graphical data as input data, including relative line chart, MA line chart.
 
 ## numerical data
-feed numerical data as input data
+feed numerical data as input data, such as daily close price, MA, RSI.
