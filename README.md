@@ -19,5 +19,5 @@ Need to consider about transmission time. Transmission time must not be longer t
 Take reference from RobRomijnders's work (http://robromijnders.github.io/CNN_tsc/)
 
 ## Deep Q Network
-Take reference from FloodSung's work (https://zhuanlan.zhihu.com/p/21477488?refer=intelligentunit) and yenchenlin's work
+Take reference from FloodSung's work (https://zhuanlan.zhihu.com/p/21477488?refer=intelligentunit) and yenchenlin's work (https://github.com/yenchenlin/DeepLearningFlappyBird)
 
