@@ -1,0 +1,100 @@
+import gym
+import tensorflow as tf
+import numpy as np
+import random
+from collections import deque
+
+import matplotlib.finance as finance
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from yahoo_finance import Share
+import datetime
+
+
+day_len = 10  # numbers of days for every data
+ticker = '2330.TW'  # stock TSMC
+save_figure = False  # true if you want to renew figure
+
+# Hyper Parameters for DQN
+GAMMA = 0.9  # discount factor for target Q
+INITIAL_EPSILON = 0.5  # starting value of epsilon
+FINAL_EPSILON = 0.01  # final value of epsilon
+REPLAY_SIZE = 10000  # experience replay buffer size
+BATCH_SIZE = 32  # size of minibatch
+
+# Hyper Parameters for main function
+EPISODE = 10000  # total episode
+STEP = 10000  # Step limitation in an episode, it must be equal or larger than your training data
+TEST = 10 #10 # The number of experiment test every 100 episode
+
+
+# Get stock data with matplotlib.finance, and remove the data with zero volume
+def get_stock(ticker, startdate, enddate):
+    fh = finance.fetch_historical_yahoo(ticker, startdate, enddate)
+    # a numpy record array with fields: (date, open, high, low, close, volume, adj_close)
+    r = mlab.csv2rec(fh)
+    fh.close()
+    r.sort()
+    print 'the length of data:', len(r.close)
+    get_stock_data = []
+    for i in xrange(0, len(r.close)-1):
+        if (r.volume[i] != 0):
+            get_stock_data.append(r.close[i].tolist())
+    print 'after removing the datas with zero volume, the length of data:', len(get_stock_data)
+    return get_stock_data
+
+train = get_stock(ticker, datetime.date(2011, 1, 1), datetime.date(2015, 12, 31))
+test = get_stock(ticker, datetime.date(2016, 1, 1), datetime.date(2016, 8, 17))
+
+
+# Calculate relative price
+def get_relative_data(stock_data):
+    relative_data = []
+    for i in xrange(1, len(stock_data)):
+        relative_price_change = (stock_data[i] - stock_data[i-1]) / stock_data[i-1]
+        relative_data.append(relative_price_change)
+    return relative_data
+
+relative_train = get_relative_data(train)
+relative_test = get_relative_data(test)
+
+
+# plot and save relative price line chart
+max_ylim = max(max(relative_train), max(relative_test))
+min_ylim = min(min(relative_train), min(relative_test))
+
+def save_pic(data, filename):
+    for i in xrange (0, len(data)-day_len):
+        fig, ax = plt.subplots(nrows=1, ncols=1)
+        fig.set_size_inches(1, 1)
+        ax.plot([i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9], [data[i], data[i+1], data[i+2], data[i+3], data[i+4], data[i+5], data[i+6], data[i+7], data[i+8], data[i+9]])
+        ax.set_ylim([min_ylim, max_ylim])
+        plt.axis('off')
+        fig.savefig('/home/carine/Desktop/2330/relative_price/'+filename+'/'+filename+'_'+str(i)+'.png', dpi=80)
+        fig.clear()
+        plt.close(fig)
+
+if save_figure == True:
+    save_pic(relative_train, "train")
+    save_pic(relative_test, "test")
+
+
+# load the figure
+def get_image(file_dir):
+    img = mpimg.imread(file_dir)
+    return img
+
+image = []
+for i in xrange(0, len(relative_train)-day_len):
+    file_dir = "/home/carine/Desktop/2330/relative_price/train/train_" + str(i) + ".png"
+    image.append(get_image(file_dir))
+my_train = np.asarray(image)
+
+image = []
+for i in xrange(0, len(relative_test)-day_len):
+    file_dir = "/home/carine/Desktop/2330/relative_price/test/test_" + str(i) + ".png"
+    image.append(get_image(file_dir))
+my_test = np.asarray(image)
+
+#
