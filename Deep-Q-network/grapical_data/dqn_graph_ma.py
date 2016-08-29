@@ -45,7 +45,7 @@ def get_stock(ticker, startdate, enddate):
 
 train = get_stock(ticker, datetime.date(2011, 1, 1), datetime.date(2015, 12, 31))
 test = get_stock(ticker, datetime.date(2016, 1, 1), datetime.date(2016, 8, 17))
-
+_stock_data = get_stock(ticker, datetime.date(2011, 1, 1), datetime.date(2015, 8, 17))
 
 # label ( rise over 10% : [0,1], fall over 5% : [1,0], neither : [0,0] )
 def get_label(stock_data):
